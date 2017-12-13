@@ -11,7 +11,12 @@
 angular.module('publicApp')
   .factory('Room', function ($rootScope, $q, Io, config) {
 
-    var iceConfig = { 'iceServers': iceServers},
+
+    var iceConfig = { 'iceServers': [{url:'stun:stun.l.google.com:19302'},
+									{url:'stun:stun1.l.google.com:19302'},
+									{url:'stun:stun2.l.google.com:19302'},
+									{url:'stun:stun3.l.google.com:19302'},
+									{url:'stun:stun4.l.google.com:19302'}]},
         peerConnections = {},
         currentId, roomId,
         stream;
@@ -48,7 +53,7 @@ angular.module('publicApp')
       }, function (e) {
         console.log(e);
       },
-      { mandatory: { offerToReceiveVideo: true, offerToReceiveAudio: true }});
+      { mandatory: { 'offerToReceiveVideo': true, 'offerToReceiveAudio': true }});
     }
 
     function handleMessage(data) {
